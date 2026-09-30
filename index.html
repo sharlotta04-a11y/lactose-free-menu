@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebKredit: Контроль лактози</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; }
+        .dish { padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; transition: 0.3s; }
+        .lactose-warning { background-color: #ffebee; border-left: 6px solid #f44336; }
+        .badge { background: #f44336; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-left: 10px; }
+        .ai-note { text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🍽️ Меню WebKredit</h1>
+    <p class="ai-note">Ця сторінка згенерована за допомогою ШІ. Вона автоматично перевіряє страви і підсвічує ті, що містять лактозу (Алерген 7).</p>
+    
+    <div id="menu-container">
+        <!-- Сюди завантажуватимуться страви -->
+        <p>Завантаження меню...</p>
+    </div>
+</div>
+
+<script>
+    // ЦЕЙ КОД ЗГЕНЕРОВАНО ШІ ДЛЯ АВТОМАТИЗАЦІЇ
+    // Тут ми імітуємо отримання даних з WebKredit, оскільки для реального сайту потрібен пароль студента
+    
+    const sampleMenuData = [
+        { name: "Суп-пюре грибний", allergens: "1, 7" },
+        { name: "Куряча відбивна з картоплею", allergens: "1, 3" },
+        { name: "Паста карбонара", allergens: "1, 3, 7" },
+        { name: "Салат з капусти та моркви", allergens: "10" }
+    ];
+
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        container.innerHTML = ''; // Очищаємо контейнер
+
+        sampleMenuData.forEach(dish => {
+            // ШІ ЛОГІКА: Перевіряємо, чи є цифра 7 серед алергенів
+            const hasLactose = dish.allergens.split(',').map(a => a.trim()).includes('7');
+            
+            const dishElement = document.createElement('div');
+            dishElement.className = hasLactose ? 'dish lactose-warning' : 'dish';
+            
+            let dishHTML = `<h3>${dish.name}`;
+            if (hasLactose) {
+                dishHTML += `<span class="badge">⚠️ МІСТИТЬ ЛАКТОЗУ (Алерген 7)</span>`;
+            }
+            dishHTML += `</h3><p><strong>Алергени:</strong> ${dish.allergens}</p>`;
+            
+            dishElement.innerHTML = dishHTML;
+            container.appendChild(dishElement);
+        });
+    }
+
+    // Запускаємо відмальовування меню
+    setTimeout(renderMenu, 1000); // Затримка 1 сек для красивого ефекту завантаження
+</script>
+
+</body>
+</html>
