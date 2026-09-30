@@ -18,39 +18,41 @@
 
 <div class="container">
     <h1>🍽️ Меню WebKredit</h1>
-    <p class="ai-note">Ця сторінка згенерована за допомогою ШІ. Вона автоматично перевіряє страви і підсвічує ті, що містять лактозу (Алерген 7).</p>
+    <p class="ai-note">Ця сторінка згенерована за допомогою ШІ. Вона автоматично перевіряє страви і підсвічує ті, що містять лактозу (Шукає Алерген 7 або слово "mléko").</p>
     
     <div id="menu-container">
         <!-- Сюди завантажуватимуться страви -->
-        <p>Завантаження меню...</p>
+        <p>Аналіз меню...</p>
     </div>
 </div>
 
 <script>
-    // ЦЕЙ КОД ЗГЕНЕРОВАНО ШІ ДЛЯ АВТОМАТИЗАЦІЇ
-    // Тут ми імітуємо отримання даних з WebKredit, оскільки для реального сайту потрібен пароль студента
+    // ЦЕЙ КОД ЗГЕНЕРОВАНО ШІ (Gemini) ДЛЯ АВТОМАТИЗАЦІЇ
+    // Реальні дані з вашого WebKredit
     
-    const sampleMenuData = [
-        { name: "Суп-пюре грибний", allergens: "1, 7" },
-        { name: "Куряча відбивна з картоплею", allergens: "1, 3" },
-        { name: "Паста карбонара", allergens: "1, 3, 7" },
-        { name: "Салат з капусти та моркви", allergens: "10" }
+    const realMenuData = [
+        { name: "Polévka celerový krém s krutony", allergens: "lepek (pšenice), celer" },
+        { name: "Smažený kuřecí řízek, bramborová kaše, okurek sterilovaný", allergens: "lepek (pšenice), vejce, mléko, hořčice" },
+        { name: "Kuřecí nudličky se sýrovou omáčkou, těstoviny vřetena, přesnídávka fresh party 100 g", allergens: "lepek (pšenice), mléko" },
+        { name: "BLP Smažený kuřecí řízek, bramborová kaše, okurek sterilovaný", allergens: "vejce, mléko, hořčice" },
+        { name: "Jogurtové mléko ochucené 400 ml, vánočka 2 ks, Žervé 50 g, chléb toastový 3 ks", allergens: "lepek (pšenice, žito, ječmen), soja, mléko" }
     ];
 
     function renderMenu() {
         const container = document.getElementById('menu-container');
         container.innerHTML = ''; // Очищаємо контейнер
 
-        sampleMenuData.forEach(dish => {
-            // ШІ ЛОГІКА: Перевіряємо, чи є цифра 7 серед алергенів
-            const hasLactose = dish.allergens.split(',').map(a => a.trim()).includes('7');
+        realMenuData.forEach(dish => {
+            // РОЗУМНА ШІ-ЛОГІКА: Перевіряємо, чи є '7' або 'mléko' (без врахування регістру)
+            const allergensLower = dish.allergens.toLowerCase();
+            const hasLactose = allergensLower.includes('7') || allergensLower.includes('mléko');
             
             const dishElement = document.createElement('div');
             dishElement.className = hasLactose ? 'dish lactose-warning' : 'dish';
             
             let dishHTML = `<h3>${dish.name}`;
             if (hasLactose) {
-                dishHTML += `<span class="badge">⚠️ МІСТИТЬ ЛАКТОЗУ (Алерген 7)</span>`;
+                dishHTML += `<span class="badge">⚠️ МІСТИТЬ ЛАКТОЗУ</span>`;
             }
             dishHTML += `</h3><p><strong>Алергени:</strong> ${dish.allergens}</p>`;
             
@@ -59,8 +61,7 @@
         });
     }
 
-    // Запускаємо відмальовування меню
-    setTimeout(renderMenu, 1000); // Затримка 1 сек для красивого ефекту завантаження
+    setTimeout(renderMenu, 800); 
 </script>
 
 </body>
